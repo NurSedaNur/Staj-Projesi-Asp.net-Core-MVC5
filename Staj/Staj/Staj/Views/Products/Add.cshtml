@@ -1,0 +1,173 @@
+﻿@{
+    ViewData["Title"] = "Add";
+}
+@model Tutanak
+<html>
+<head>
+    <title>TESLİM VE TESELLÜM TUTANAĞI</title>
+    <style>
+        .h1icin {
+            text-align: center;
+            color: #ed522f;
+        }
+        .butoniçin {
+            /*width: 100%;*/ /* Kutunun genişliği */
+            height: 40px; /* Kutunun yüksekliği */
+            background-color: #CDD5DE;
+        }
+        .butonicin2 {
+            background-color: #CDD5DE;
+            width: 200px;
+        }
+        .butonicin3 {
+            background-color: #CDD5DE;
+            width: 220px;
+        }
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        input[type="date"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #CDD5DE;
+        }
+        .forisyeriunvan {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            background-color: #CDD5DE;
+        }
+        .forpage {
+            padding-right: 10%;
+            padding-left: 10%;            
+        }
+        .basliklar {
+            color: #E87758;
+        }
+    </style>
+
+    @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">*@
+</head>
+<body>
+    <h1 class="h1icin">TESLİM VE TESELLÜM TUTANAĞI</h1>
+    <div class="col-sm-12 forpage" style="background-color: #e6ebf0 ">
+        @using (Html.BeginForm("CreateNewForm", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.ValidationSummary()
+            {
+                @*<form asp-controller="Tutanaklar" asp-action="Add" method="post" enctype="multipart/form-data">*@
+        <div class="col-sm-12 row">
+            <div class="col-sm-6">
+                <p class="basliklar">İŞYERİNİN UNVANI:</p>
+                <select class="form-select forisyeriunvan" asp-for="IsYeri">
+                    <option selected>Seçiniz...</option>
+                    <option value="TECHNOCAST">TECHNOCAST</option>
+                    <option value="CARRE METAL">CARRE METAL</option>
+                    <option value="MEDNETİC">MEDNETİC</option>
+                </select>
+            </div>
+            <div class="col-sm-6">
+                <p class="basliklar">TESLİM TARİHİ:</p>
+                <input class="from-control forisyeriunvan col-sm-12" type="datetime-local" asp-for="TeslimTarihi" name="birthdate" autocomplete="off">
+            </div>
+            <div class="col-sm-6">
+                <label for="Name" class="form-label basliklar">TESLİM OLUNAN MALZEME TANIMI:</label>
+                <input type="text" class="form-control butoniçin" asp-for="Malzeme" autocomplete="off">
+            </div>
+
+            <div class="col-sm-6">
+                <label for="exampleFormControlTextarea1" class="form-label basliklar">DİĞER BİLGİLER:</label>
+                <textarea class="form-control butoniçin" asp-for="Diger" rows="1" autocomplete="off"></textarea>
+            </div>
+        </div><br />
+
+                <div class="col-sm-12 row">
+                   <div class="col-sm-6" style="text-align: center">
+                        <h5 class="basliklar ">TESLİM EDEN</h5>
+                        <label for="exampleInputEmail1" class="form-label col-sm-3">ADI SOYADI</label>
+                        <input type="text" class="form-control butonicin3" asp-for="TeslimEdenAd" value=@ViewBag.adminName readonly="readonly" style="display: inline;" autocomplete="off">
+                        <br />
+                        <label for="exampleInputEmail1" class="form-label col-sm-3">DEPARTMAN </label>
+                        <input type="text" class="form-control butonicin3" asp-for="TeslimEdenDep" value=@ViewBag.adminDep readonly="readonly" style="display: inline;" autocomplete="off">
+                        <br />
+                        <label for="exampleInputEmail1" class="form-label col-sm-3">GÖREVİ    </label>
+                        <input type="text" class="form-control butonicin3" asp-for="TeslimEdenGorev" value=@ViewBag.adminGorev readonly="readonly" style="display: inline; " autocomplete="off">
+                        <br />
+                        <input type="hidden" class="form-control butonicin3" id="TeslimEdenId" asp-for="TeslimEdenId" value=@ViewBag.teslimedenId>
+                    </div>
+                   <div class="col-sm-6"  style="text-align: center">
+                        <h5  class="basliklar">TESLİM ALAN</h5>
+                        <label for="exampleInputEmail1" class="form-label col-sm-3">ADI SOYADI</label>
+                        <select name="TeslimAlanAd" class="form-control butonicin3" style="display:inline; asp-for="TeslimAlanAd">
+                        <option></option>
+                        @foreach (var item in ViewBag.allusers)
+                        {
+                             <option name="TeslimAlanAd" value="@item.Adı">@item.Adı</option>
+                        }
+                        </select>
+                        <br />
+                        <label for="exampleInputEmail1" class="form-label col-sm-3">DEPARTMAN </label>
+                        <input type="text" id="TeslimAlanDep" class="form-control butonicin3" asp-for="TeslimAlanDep" style="display: inline;" autocomplete="off">
+                        <br />
+                        <label for="exampleInputEmail1" class="form-label col-sm-3">GÖREVİ    </label>
+                        <input type="text" id="TeslimAlanGorev" class="form-control butonicin3" asp-for="TeslimAlanGorev" style="display: inline; " autocomplete="off">
+                        <br />
+                        <input type="hidden" id="TeslimAlanId" class="form-control butonicin3" asp-for="TeslimAlanId">
+
+                        <input type="hidden" class="form-control butonicin3" id="Id" asp-for="Id" value="@ViewBag.sonTutanakId">
+                    </div>
+                </div><br />
+                <div class="input-group col-sm-12 row">
+                    <input type="file" class="form-control butoniçin" name="img" id="img" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary" style="background-color: #ed522f">ONAYLIYORUM!</button>
+                <br /><br /><br /><br /><br /><br />
+                @*</form>*@
+            }
+        }
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            // TeslimAlanAd select elementini seçiyoruz
+            var selectElement = $('select[name="TeslimAlanAd"]');
+            // Kullanıcı bir seçenek seçtiğinde olayı dinliyoruz
+            selectElement.on('change', function () {
+                // Seçilen kullanıcının adını al
+                var selectedUser = $(this).val();
+                console.log(selectedUser)
+                // AJAX isteği göndererek veritabanından kullanıcının bilgilerini al
+                $.ajax({
+                    type: 'GET',
+                    url: '/Products/GetPersInfo', // Bu URL'yi kendi uygulamanıza uygun şekilde güncelleyin
+                  data: { userName: selectedUser }, // Seçilen kullanıcının adını gönderiyoruz*/
+                    success: function (data) {
+                        // Veritabanından gelen bilgileri kullanarak formu doldur
+                        console.log(data, data.kullanici, data.kullanici.id)
+                        $('#TeslimAlanDep').val(data.kullanici.departman); // Departman bilgisini dolduruyoruz 
+                        $('#TeslimAlanGorev').val(data.kullanici.gorev); // Gorev bilgisini dolduruyoruz 
+                        $('#TeslimAlanId').val((data.kullanici.id));
+                    },
+                    error: function () {
+                        // Hata yönetimi
+                        console.log('Bir hata oluştu.');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
+

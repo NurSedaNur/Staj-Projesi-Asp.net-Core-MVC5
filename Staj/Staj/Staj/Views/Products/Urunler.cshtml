@@ -1,0 +1,145 @@
+﻿@model List<Tutanak>
+@{
+    ViewData["Title"] = "Urunler";
+}
+@if (TempData["status"] != null)
+{
+    <div class="alert alert-primary" role="alert">
+        <span>@TempData["status"]</span>
+    </div>
+}
+@if (TempData["status2"] != null)
+{
+    <div class="alert alert-primary" role="alert">
+        <span>@TempData["status2"]</span>
+    </div>
+}
+@if (TempData["bir"] != null)
+{
+    <div class="alert alert-primary" role="alert">
+        <span>@TempData["bir"]</span>
+    </div>
+
+}
+
+
+<html>
+<head>
+    <title>ÜRÜNLERİM </title>
+
+    @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">*@
+    <style>
+        .h1icin {
+            text-align: center;
+            color: #ed522f;
+        }
+
+        .theadicin {
+            background-color: #CDD5DE;
+        }
+
+        table {
+            font-size: 0.7em;
+            text-align: center
+        }
+    </style>
+</head>
+<body>
+    @*filtreleme eklenmeli/sıralama*@
+    <div class="card card-header theadicin"><h5 class="h1icin">VERİLEN ÜRÜNLER</h5></div>
+    <div class="card card-body">
+        @using(Html.BeginForm("Urunler","Products",FormMethod.Get))
+        {
+            <p>
+                <b>Aranacak Teslim Alan Adı : </b> @Html.TextBox("p")
+                <input type="submit" value="Ara" style="background-color: #CDD5DE"/>
+            </p>
+        }
+        <table class="table table-bordered table-hover">
+            <thead class="theadicin">
+                <tr>
+                    <th style="width: 220px;">İş Yeri</th>
+                    <th style="width: 220px;">Teslim Alan</th>
+                    <th style="width: 220px;">Malzeme</th>
+                    <th style="width: 220px;">Diğer</th>
+                    <th style="width: 220px;">Teslim Tarihi</th>
+                    <th style="width: 220px;">Mail Onay Durumu</th>
+                    <th style="width: 220px;">Resim</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.IsYeri</td>
+                        <td>@item.TeslimAlanAd</td>
+                        <td>@item.Malzeme</td>
+                        <td>@item.Diger</td>
+                        <td>@item.TeslimTarihi.Value.Date.ToString("dd.MM.yyyy")</td>
+                       
+                            @if (item.MailOnayDurumu == true)
+                            {
+                                <td style="background-color:rgb(24,20,0,0.4)">
+                                    <span>Onaylandı</span>
+
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="background-color: rgb(255,0,0,0.4)">
+                                    <span>Onaylanmadı</span>
+
+                                </td>
+                            }
+                        
+                         <td>
+                            <img src="/@item.Resim.Substring(@item.Resim.IndexOf("Image")).Replace("\\", "/").Replace("img","Image").ToString()"
+                                 width="25" height="25" alt="Hata oluştu..."
+                                 class="resim-tikla" data-resim-yol="/@item.Resim.Substring(@item.Resim.IndexOf("Image")).Replace("\\", "/").Replace("img","Image").ToString()" >
+                        </td>
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+        @* @Context.Request.Cookies["userid"]*@
+        @*@Convert.ToInt32(Context.Request.Cookies["userid"])*@
+
+    </div>
+
+    <div id="resimModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content" style="text-align:center">
+               <div class="modal-body">
+                    <!-- Resim burada görüntülenecek -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".resim-tikla").click(function () {
+                var resimYolu = $(this).data("resim-yol");
+                var modalIcerik = '<img src="' + resimYolu + '" alt = "" class="img-fluid"  width="150" height="150" />';
+                console.log(resimYolu, modalIcerik);
+                $("#resimModal .modal-body").html(modalIcerik);
+                $("#resimModal").modal("show");
+            });
+        });
+    </script>
+
+
+</body>
+</html>
+
+
+
+
+

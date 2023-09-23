@@ -1,0 +1,194 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+@if (TempData["status"] != null)
+{
+    <div class="alert alert-primary" role="alert">
+        <span>@TempData["status"]</span>
+    </div>
+}
+<html>
+<head>
+    <title>TESLİM VE TESELLÜM TUTANAĞI</title>
+    <style>
+        .h1icin {
+            text-align: center;
+            color: #ed522f;
+        }
+
+        .butoniçin {
+            /*width: 100%;*/ /* Kutunun genişliği */
+            height: 40px; /* Kutunun yüksekliği */
+            background-color: #CDD5DE;
+        }
+
+        .butonicin2 {
+            background-color: #CDD5DE;
+            width: 200px;
+        }
+
+        .butonicin3 {
+            background-color: #CDD5DE;
+            width: 220px;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-left, .form-right {
+            width: 50%; /* Formları isteğinize göre genişlikleri ile ayarlayın */
+        }
+
+        input[type="date"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 20%;
+            background-color: #CDD5DE;
+        }
+
+        .forisyeriunvan {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            background-color: #CDD5DE;
+        }
+
+        .forpage {
+            /*margin-right: 130px;
+            margin-left: 200px;*/
+            padding-right: 20%;
+            padding-left: 20%;
+            padding-block-start: 3%;
+        }
+
+        .basliklar {
+            color: #E87758;
+        }
+    </style>
+
+
+
+</head>
+<body>
+
+    <h1 class="h1icin">TESLİM VE TESELLÜM TUTANAĞI</h1>
+    <div class="forpage" style="background-color: #e6ebf0 ">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(){
+
+                <p class="basliklar">İŞYERİNİN UNVANI:</p>
+                <select class="form-select forisyeriunvan" aria-label="Default select example">
+                    <option selected>Seçiniz...</option>
+                    <option value="TECHNOCAST">TECHNOCAST</option>
+                    <option value="CARRE METAL">CARRE METAL</option>
+                    <option value="MEDNETİC">MEDNETİC</option>
+                </select>
+                <br /><br />
+
+                @*<p> Teslim Olunan Malzeme Tanımı:</p>*@
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label basliklar">TESLİM OLUNAN MALZEME TANIMI:</label>
+                    <input type="text" class="form-control butoniçin" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+
+
+                @*<p> Diğer Bilgiler:</p>*@
+
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label basliklar">DİĞER BİLGİLER:</label>
+                    <textarea class="form-control butoniçin" id="exampleFormControlTextarea1" rows="2"></textarea>
+                </div>
+
+
+                @*<p> Teslim Tarihi:</p>*@
+                <div>
+                    <label for="birthdate" class="basliklar">TESLİM TARİHİ:</label>
+                    <input type="date" id="birthdate" name="birthdate">
+                </div>
+                <br />
+
+                @*<p> Mülkiyeti:</p>*@
+                <!--<div class="mb-3">
+                    <p style="display: inline;">Mülkiyeti</p>
+                    <label for="exampleInputEmail1" class="form-label"></label>
+                    <input type="email" class="form-control butonicin2" style=" display: inline;" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <p style="display: inline;">'ye ait olan</p>
+                    <label for="exampleInputEmail1" class="form-label" style="display: inline;"></label>
+                    <input type="email" class="form-control butonicin2" style="display: inline;" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <p style="display: inline;">demirbaşı</p>
+                    <br /><br />
+                    <label for="exampleInputEmail1" class="form-label"></label>
+                    <input type="email" class="form-control butonicin2" style="display: inline;" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <p style="display: inline;">ile birlikte  çalışır durumda eksiksiz olarak teslim edilmiştir.</p>
+                    <p overflow-wrap: break-word">
+                        Demirbaş olarak aldığım bu malzemeyi emeklilik, istifa veya görevden ayrılma gibi durumlarda eksiksiz ve çalışır durumda görevlilere teslim edilecektir.(Garanti kapsamına girmeyen ve kullanıcı hatasından kaynaklanan arızaların tamirinden kendisinin sorumlu olduğu imza sahibine hatırlatılmıştır.)
+                    </p>
+                </div>
+                <br /><br />-->
+
+                <div class="form-container">
+                    <div style="text-align: left">
+                        <h5 class="basliklar">TESLİM EDEN</h5>
+                        <div style="text-align: right">
+                            <label for="exampleInputEmail1" class="form-label">ADI SOYADI</label>
+                            <input type="text" class="form-control butonicin3" style="display: inline; " id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <br />
+                            <label for="exampleInputEmail1" class="form-label">DEPARTMAN </label>
+                            <input type="text" class="form-control butonicin3" style="display: inline;" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <br />
+                            <label for="exampleInputEmail1" class="form-label">GÖREVİ    </label>
+                            <input type="text" class="form-control butonicin3" style="display: inline; " id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <br />
+                        </div>
+                    </div>
+                    <div style="text-align: right">
+                        <h5 style="text-align: left;" class="basliklar">TESLİM ALAN</h5>
+                        <label for="exampleInputEmail1" class="form-label">ADI SOYADI</label>
+                        <input type="text" class="form-control butonicin3" style="display: inline; " id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <br />
+                        <label for="exampleInputEmail1" class="form-label">DEPARTMAN </label>
+                        <input type="text" class="form-control butonicin3" style="display: inline;" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <br />
+                        <label for="exampleInputEmail1" class="form-label">GÖREVİ    </label>
+                        <input type="text" class="form-control butonicin3" style="display: inline; " id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <br />
+                    </div>
+                </div>
+                <br /><br /><br />
+
+
+
+                <button type="submit" class="btn btn-primary" style="background-color: #ed522f">ONAYLIYORUM!</button>
+
+
+
+
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+            }
+
+
+        }
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+</body>
+</html>
+

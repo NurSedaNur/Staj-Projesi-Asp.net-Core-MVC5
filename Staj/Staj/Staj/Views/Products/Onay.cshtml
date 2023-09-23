@@ -1,0 +1,195 @@
+﻿
+@{
+    ViewData["Title"] = "Onay";
+}
+
+@model List<Tutanak>
+<html>
+<head>
+    <title>TESLİM VE TESELLÜM TUTANAĞI ONAY FORMU</title>
+    <style>
+        .yaziboyutu {
+            font-size: small;
+        }
+
+        .h1icin {
+            text-align: center;
+            color: #ed522f;
+        }
+
+        .butoniçin {
+            /*width: 100%;*/ /* Kutunun genişliği */
+            height: 40px; /* Kutunun yüksekliği */
+            background-color: #CDD5DE;
+        }
+
+        .butonicin2 {
+            background-color: #CDD5DE;
+            width: 200px;
+        }
+
+        .butonicin3 {
+            background-color: #CDD5DE;
+            width: 250px;
+        }
+        .butonicin4 {
+            background-color: #CDD5DE;
+            width: 150px;
+        }
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-left, .form-right {
+            width: 50%; /* Formları isteğinize göre genişlikleri ile ayarlayın */
+        }
+
+        input[type="date"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 20%;
+            background-color: #CDD5DE;
+        }
+
+        .forisyeriunvan {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            background-color: #CDD5DE;
+        }
+
+        .forpage {
+            /*margin-right: 130px;
+            margin-left: 200px;*/
+            padding-right: 20%;
+            padding-left: 20%;
+            padding-block-start: 3%;
+        }
+
+        .basliklar {
+            color: #E87758;
+        }
+
+        .bilgimetniicin {
+            font-size: medium;
+            font-style: italic;
+            color: #38270e;
+        }
+    </style>
+
+    @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">*@
+</head>
+<body>
+
+    <h1 class="h1icin">TESLİM VE TESELLÜM TUTANAĞI ONAY FORMU</h1>
+    <div class="forpage" style="background-color: #e6ebf0 ">
+        @using (Html.BeginForm("Onay", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.ValidationSummary()
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="mb-3">
+                        <label for="Name" class="form-label basliklar yaziboyutu">İŞYERİNİN UNVANI : </label>
+                        <input type="text" class="form-control yaziboyutu butonicin3" name="IsYeri" asp-for="@item.IsYeri" id="IsYeri" readonly="readonly" value=@item.IsYeri style="display: inline; " autocomplete="off">
+                    </div> <br />
+                    <div class="mb-3">
+                        <label for="Name" class="form-label basliklar yaziboyutu">TESLİM OLUNAN MALZEME TANIMI : </label>
+                        <input type="text" class="form-control yaziboyutu butonicin3" name="Malzeme" asp-for="@item.Malzeme" id="Malzeme" value=@item.Malzeme readonly="readonly" style="display: inline;" autocomplete="off">
+                    </div><br />
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label basliklar yaziboyutu">DİĞER BİLGİLER :</label>
+                        <input type="text" class="form-control yaziboyutu butonicin3" name="Diger" asp-for="@item.Diger" id="Diger" value=@item.Diger readonly="readonly" style="display: inline;" autocomplete="off ">
+                    </div> <br />
+                    <div>
+                        <label for="birthdate" class="basliklar yaziboyutu">TESLİM TARİHİ :</label>
+                        <input type="text" class="form-control yaziboyutu butonicin3" name="TeslimTarihi" asp-for="@item.TeslimTarihi" id="Diger" readonly="readonly" value=@item.TeslimTarihi.Value.Date.ToString("dd.MM.yyyy") style="display: inline;" autocomplete="off ">
+                    </div> <br />
+
+                    <div class="form-container" style=" width: 70%;">
+                        <div style="text-align: left">
+                            <h5 class="basliklar ">TESLİM EDEN</h5>
+                            <div style="text-align: left">
+                                <label for="exampleInputEmail1" class="form-label yaziboyutu" style="display: inline;">ADI SOYADI : </label>
+                                <input type="text" class="form-control yaziboyutu butonicin4" name="TeslimEdenAd" asp-for="@item.TeslimEdenAd" id="TeslimEdenAd" value=@item.TeslimEdenAd readonly="readonly" style="display: inline;" autocomplete="off "><br /><br />
+                                <label for="exampleInputEmail1" class="form-label yaziboyutu">DEPARTMAN : </label>
+                                <input type="text" class="form-control yaziboyutu butonicin4" name="TeslimEdenDep" asp-for="@item.TeslimEdenDep" id="TeslimEdenDep" value=@item.TeslimEdenDep readonly="readonly" style="display: inline;" autocomplete="off "><br /><br />
+                                <label for="exampleInputEmail1" class="form-label yaziboyutu" style="display: inline;">GÖREVİ :   </label>
+                                <input type="text" class="form-control yaziboyutu butonicin4" name="TeslimEdenGorev" asp-for="@item.TeslimEdenGorev" id="TeslimEdenGorev" value=@item.TeslimEdenGorev readonly="readonly" style="display: inline;" autocomplete="off "><br /><br />
+                                <input type="hidden" class="form-control butonicin3" name="TeslimEdenId" id="TeslimEdenId" asp-for="@item.TeslimEdenId" value="@item.TeslimEdenId">
+                            </div>
+                        </div>
+                        <div style="text-align: left">
+                            <h5 style="text-align: left;" class="basliklar">TESLİM ALAN</h5>
+                            <label for="exampleInputEmail1" class="form-label yaziboyutu">ADI SOYADI : </label>
+                            <input type="text" class="form-control yaziboyutu butonicin4" name="TeslimAlanAd" asp-for="@item.TeslimAlanAd" id="TeslimAlanAd" value=@item.TeslimAlanAd readonly="readonly" style="display: inline;" autocomplete="off "><br /><br />
+                            <label for="exampleInputEmail1" class="form-label yaziboyutu">DEPARTMAN :</label>
+                            <input type="text" class="form-control yaziboyutu butonicin4" name="TeslimAlanDep" asp-for="@item.TeslimAlanDep" id="TeslimAlanDep" value=@item.TeslimAlanDep readonly="readonly" style="display: inline;" autocomplete="off "><br /><br />
+                            <label for="exampleInputEmail1" class="form-label yaziboyutu">GÖREVİ : </label>
+                            <input type="text" class="form-control yaziboyutu butonicin4" name="TeslimAlanGorev" asp-for="@item.TeslimAlanGorev" id="TeslimAlanGorev" value=@item.TeslimAlanGorev readonly="readonly" style="display: inline;" autocomplete="off "><br /><br />
+                            <input type="hidden" class="form-control butonicin3" name="TeslimAlanId" asp-for="@item.TeslimAlanId" id="TeslimAlanId" value=@item.TeslimAlanId>
+
+                        </div>
+                    </div><hr />
+
+                    <div class="mb-3  bilgimetniicin">
+                        <p style="display: inline;">Mülkiyeti</p>
+                        <label for="exampleInputEmail1" class="form-label">@item.IsYeri</label>
+                        <p style="display: inline;">'ye ait olan</p>
+                        <label for="exampleInputEmail1" class="form-label" style="display: inline;">@item.Malzeme</label>
+                        <p style="display: inline;">demirbaşı</p>
+                        <label for="exampleInputEmail1" class="form-label">@item.Diger</label>
+                        <p style="display: inline;">ile birlikte  çalışır durumda eksiksiz olarak teslim edilmiştir.</p>
+                        <p overflow-wrap: break-word">
+                            Demirbaş olarak aldığım bu malzemeyi emeklilik, istifa veya görevden ayrılma gibi durumlarda eksiksiz ve çalışır durumda görevlilere teslim edilecektir.(Garanti kapsamına girmeyen ve kullanıcı hatasından kaynaklanan arızaların tamirinden kendisinin sorumlu olduğu imza sahibine hatırlatılmıştır.)
+                        </p>
+                        <input type="hidden" class="form-control butonicin3" id="Id" name="Id" asp-for="@item.Id" value="@item.Id">
+                    </div>
+                    <hr />
+
+
+                    <div class="card" style="width: 18rem;">
+                        <img src="~/@item.Resim.Substring(@item.Resim.IndexOf("Image")).Replace("\\", "/").Replace("img","Image").ToString()" alt="Hata oluştu...">
+                        <input type="hidden" class="form-control butonicin3" id="Resim" name="Resim" asp-for="@item.Resim" value="@item.Resim">
+                        <div class="card-body">
+                            <p class="card-text">Ürünün fotoğrafıdır.</p>
+                        </div>
+                    </div><hr />
+
+                }
+
+                <div class="col-sm-12 row">
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-primary" style="background-color: #ed522f">ONAYLIYORUM!</button><br /><br />
+                    </div>
+                    @*<div class="col-sm-6"  style="text-align: right">
+                        <button class="btn" style="background-color:#ed522f; color:white">@Html.ActionLink("Downlad as PDF", "ConvertToPDF")</button>
+                    </div>*@
+                </div>
+
+
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+            }
+
+
+        }
+
+
+
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+</body>
+</html>
+
